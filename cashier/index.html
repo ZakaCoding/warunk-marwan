@@ -129,20 +129,6 @@
 
         function generateOrder()
         {
-            // get data from url
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const orderid = urlParams.get('orderid')
-
-            if(orderid == '')
-            {
-                return window.location.href = "http://localhost/warunk-marwan/"
-            }
-
-            let restJson = {
-                id: orderid
-            }
-
             // open connection server
             let xhr = new XMLHttpRequest()
             let url = "http://localhost/warunk-marwan/server/get-order.php"

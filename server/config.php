@@ -1,5 +1,5 @@
 <?php
-    $baseurl = "http://127.0.0.1:5500/";
+    $baseurl = "http://localhost/warunk-marwan/";
     $mysqli = new mysqli("localhost", "root", "whoami", "marwan_db");
 
     if($mysqli->connect_errno)
