@@ -85,7 +85,7 @@
                 <div class="card items w-100 rounded shadow-sm bg-light p-2 border-0 mb-3">
                     <div class="card-header d-flex justify-content-between border-0">
                         <strong>Order ID</strong>
-                        <strong>ORD09837</strong>
+                        <strong><?= $data['orderID'] ?></strong>
                     </div>
                     <div class="card-body">
                         <?php
@@ -102,7 +102,12 @@
                         ?>
                         <div class="card-item mb-2 d-flex justify-content-between mt-4">
                             <strong class="">Total Pembayaran</strong>
-                            <strong class="">Rp. 24.000</strong>
+                            <strong class="">
+                                <?php
+                                setLocale(LC_ALL, 'IND');
+                                echo money_format("", $data['total_price']);
+                                ?>
+                            </strong>
                         </div>
                     </div>
                     <button class="btn btn-lg btn-primary bg-dark border-0 w-100 mb-2" <?= "onclick=updateOrder('" . $data['orderID'] . "')" ?>>
