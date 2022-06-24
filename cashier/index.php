@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="160">
 
     <!-- bootstrap component -->
     <!-- CSS only -->
@@ -35,7 +36,7 @@
                     </div>
                     <div class="col d-flex align-items-center">
                         <!-- logo -->
-                        <a href="/" class="mx-auto">
+                        <a href="../" class="mx-auto">
                             <img src="../asset/logo.png" alt="" width="60">
                         </a>
                     </div>
@@ -60,8 +61,8 @@
         </div>
     </header>
 
-    <section>
-        <div class="container-fluid">
+    <section class="mb-5">
+        <div class="container-fluid mb-3">
             <div class="d-flex align-items-center justify-content-between border-bottom mb-3">
                 <h2 class="title fs-5 fw-bold">
                     Pesanan
@@ -70,26 +71,88 @@
                     <div id="orderid"></div>
                 </h2>
             </div>
-            <p class="text-muted mb-2">
-                <small>*jangan lupa screenshot halaman ini jika anda keluar dari marwanklik.com untuk bukti pembayaran.</small> <br>
-            </p>
-            <!-- rincian pesanan -->
-            <div class="details-order d-block pb-3"">
-                <strong class="mb-3">Detail pesanan</strong>
-                <hr style="border-top: 2px dotted;">
-                <div class="order-container mb-2 border-bottom">
-                    <!-- generate by javascript -->
+            <!-- ORDERS ACTIVE -->
+            <?php
+            // open connection
+            include "../server/config.php";
+
+            $sql = "SELECT * from `orders` WHERE `status` = ''";
+            if($mysqli->query($sql)):
+                $query = $mysqli->query($sql);
+                if($query->num_rows > 0):
+                    while($data = $query->fetch_assoc()):
+            ?>
+                <div class="card items w-100 rounded shadow-sm bg-light p-2 border-0 mb-3">
+                    <div class="card-header d-flex justify-content-between border-0">
+                        <strong>Order ID</strong>
+                        <strong>ORD09837</strong>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                            
+                        $item = json_decode($data['data']);
+                        foreach($item as $values):
+                        ?>                      
+                            <div class="card-item mb-2 d-flex justify-content-between">
+                                <strong class="text-muted"><?= $values->name ?></strong>
+                                <strong class="text-muted"><?= $values->price ?></strong>
+                            </div>
+                        <?php
+                        endforeach;
+                        ?>
+                        <div class="card-item mb-2 d-flex justify-content-between mt-4">
+                            <strong class="">Total Pembayaran</strong>
+                            <strong class="">Rp. 24.000</strong>
+                        </div>
+                    </div>
+                    <button class="btn btn-lg btn-primary bg-dark border-0 w-100 mb-2" <?= "onclick=updateOrder('" . $data['orderID'] . "')" ?>>
+                        <small>Selesaikan pesanan</small>
+                    </button>
+                    <div class="d-flex justify-content-between px-2">
+                        <i><small class="text-muted">Pesanan diterima</small></i>
+                        <i><small class="text-muted">2021-02-10 08:10</small></i>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <strong class="fs-6">Total pembayaran</strong>
-                    <strong class="text-muted fs-6" id="total-price">Rp. 17.000</strong>
-                </div>
+            <?php
+                    endwhile;
+                endif;
+            endif;
+            ?>
+            <div class="d-flex align-items-center justify-content-between border-bottom mb-3">
+                <h2 class="title fs-5 fw-bold">
+                    Pesanan Selesai
+                </h2>
             </div>
-            <div class="d-flex align-items-center py-2">
-                <strong class="fs-6 text-center">Makanan anda sedang dibuat, mohon menunggu sebentar</strong>
-            </div>
+
+            <?php
+            $sql = "SELECT * from `orders` WHERE `status` = 'selesai'";
+            if($mysqli->query($sql)):
+                $query = $mysqli->query($sql);
+                if($query->num_rows > 0):
+                    while($data = $query->fetch_assoc()):
+            ?>
+                    <div class="card items w-100 rounded shadow-sm bg-light p-2 border-0 mb-3">
+                        <div class="card-header d-flex justify-content-between border-0">
+                            <strong>Order ID</strong>
+                            <strong><?= $data['orderID'] ?></strong>
+                        </div>
+                        <div class="d-flex justify-content-between px-2 border-top">
+                            <i><small class="text-muted">Pesanan selesai</small></i>
+                            <i><small class="text-muted">2021-02-10 08:10</small></i>
+                        </div>
+                        <!-- <a href="#" class="btn btn-lg btn-primary bg-dark border-0 w-100"><small>Pesanan Selesai</small></a> -->
+                    </div>
+            <?php 
+                    endwhile;
+                endif;
+            endif;
+            ?>
         </div>
     </section>
+
+    <footer class="py-5 bg-dark">
+
+    </footer>
     
     <!-- jquery -->
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -127,11 +190,14 @@
             generateOrder()
         })
 
-        function generateOrder()
+        function updateOrder(orderID)
         {
+            let restJson = {
+                id: orderID
+            }
             // open connection server
             let xhr = new XMLHttpRequest()
-            let url = "http://localhost/warunk-marwan/server/get-order.php"
+            let url = "http://localhost/warunk-marwan/server/update-order.php"
 
             xhr.open("POST", url, true)
 
@@ -148,43 +214,13 @@
                     if(response.status == 'success')
                     {
                         // configure view here
-                        let setOrderID = document.querySelector('#orderid')
-                        setOrderID.innerText = '#' + orderid
-
-                        let formatter = new Intl.NumberFormat('id-id', {
-                            style: 'currency',
-                            currency: 'IDR'
-                        })
-
-                        document.querySelector('#total-price').innerText = formatter.format(response.price)
-
-                        // get container element
-                        var orderContainer = document.querySelector('.order-container')
-
-                        if(orderContainer !== null)
-                        {
-                            for(let i = 0; i < JSON.parse(response.data).length; i++)
-                            {
-                                var content = `
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <h3 class="fw-bold fs-6 text-muted">${JSON.parse(response.data)[0].name} (${JSON.parse(response.data)[0].total})</h3>
-                                        <h3 class="fs-6 text-muted">${JSON.parse(response.data)[0].price}</h3>
-                                    </div>
-                                `
-
-                                var createItem = document.createElement('div')
-                                // createItem.className = 'card items w-100 rounded shadow-sm bg-light p-2 border-0 mb-3'
-                                createItem.className = 'mb-2'
-                                createItem.innerHTML = content
-
-                                orderContainer.appendChild(createItem)
-                            }
-                        }
+                        location.reload()
+                        console.log(response.status)
                     }
                     else
                     {
                         // get response data
-                        console.log(response)
+                        console.log(response.status)
                     }
                 }
             }
