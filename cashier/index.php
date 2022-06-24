@@ -103,10 +103,7 @@
                         <div class="card-item mb-2 d-flex justify-content-between mt-4">
                             <strong class="">Total Pembayaran</strong>
                             <strong class="">
-                                <?php
-                                setLocale(LC_ALL, 'IND');
-                                echo money_format("", $data['total_price']);
-                                ?>
+                                <?= "Rp. " . number_format($data['total_price'], 2, ',', '.'); ?>
                             </strong>
                         </div>
                     </div>
