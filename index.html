@@ -17,6 +17,9 @@
     <!-- owl css component -->
     <link rel="stylesheet" href="node_modules/owl.carousel/dist/assets/owl.carousel.css">
 
+    <!-- product js -->
+    <script src="js/product.js"></script>
+
     <title>Warunk Marwan</title>
 </head>
 <body>
@@ -35,13 +38,20 @@
                     </div>
                     <div class="col d-flex align-items-center">
                         <!-- logo -->
-                        <img src="asset/logo.png" alt="" class="mx-auto" width="60">
+                        <a href="/" class="mx-auto">
+                            <img src="asset/logo.png" alt="" width="60">
+                        </a>
                     </div>
                     <div class="col d-flex align-items-center justify-content-end">
                         <!-- cart -->
-                        <button class="cart rounded shadow-sm p-2 d-flex align-items-center"">
+                        <a href="pages/cart.html" class="cart rounded shadow-sm p-2 d-flex align-items-center position-relative">
                             <img src="asset/icon/shopping-cart.png">
-                        </button>
+                            <div id="cart-count" class="position-absolute rounded-circle border-0 d-flex align-items-center" style="background-color: red; top: -10px; right: -7px; width: 20px; height: 20px; visibility: hidden;">
+                                <p id="total-items-on-cart" class="text-white text-center mx-auto my-2 fw-bold" style="font-size: 11pt;">
+                                    <!-- generate by javascript -->
+                                </p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -98,58 +108,74 @@
             </h2>
             <div class="row mb-5">
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=ayam crispy">
+                    <a href="pages/product.html?name=ayam crispy" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
                             <img src="upload/food/ayam crispy.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Ayam Crispy</strong>
+                            <small class="text-muted fw-bold">Rp. 12.000</small>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=ayam geprek">
+                    <a href="pages/product.html?name=ayam geprek" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
                             <img src="upload/food/ayam geprek.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Ayam Geprek</strong>
+                            <small class="text-muted fw-bold">Rp. 12.000</small>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=ayam geprek">
+                    <a href="pages/product.html?name=ayam geprek" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
-                            <img src="upload/food/ayam geprek.png" alt="" class="w 100 rounded">
+                            <img src="upload/food/tempe tahu.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Tempe Tahu Goreng</strong>
+                            <small class="text-muted fw-bold">Rp. 9.000</small>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=udang bakar">
+                    <a href="pages/product.html?name=udang bakar" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
                             <img src="upload/food/udang bakar.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Udang Bakar</strong>
+                            <small class="text-muted fw-bold">Rp. 14.000</small>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=ikan goreng">
+                    <a href="pages/product.html?name=ikan goreng" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
                             <img src="upload/food/ikan goreng.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Ikan Goreng</strong>
+                            <small class="text-muted fw-bold">Rp. 12.000</small>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=ayam goreng">
+                    <a href="pages/product.html?name=ayam goreng" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
                             <img src="upload/food/ayam goreng.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Ayam Goreng</strong>
+                            <small class="text-muted fw-bold">Rp. 12.000</small>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=lele goreng">
+                    <a href="pages/product.html?name=lele goreng" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
                             <img src="upload/food/lele goreng.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Lele Goreng</strong>
+                            <small class="text-muted fw-bold">Rp. 9.000</small>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <a href="pages/product.html?name=ikan bakar">
+                    <a href="pages/product.html?name=ikan bakar" class="text-decoration-none link-dark">
                         <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
                             <img src="upload/food/ikan bakar.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Ikan Bakar</strong>
+                            <small class="text-muted fw-bold">Rp. 12.000</small>
                         </div>
                     </a>
                 </div>
@@ -160,24 +186,40 @@
             </h2>
             <div class="row mb-3">
                 <div class="col-lg-4 col-6 my-1">
-                    <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
-                        <img src="upload/drink/orange.png" alt="" class="w 100 rounded">
-                    </div>
+                    <a href="pages/product.html?name=es jeruk" class="text-decoration-none link-dark">
+                        <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
+                            <img src="upload/drink/orange.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Es Jeruk</strong>
+                            <small class="text-muted fw-bold">Rp. 4.000</small>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
-                        <img src="upload/drink/milk tea.png" alt="" class="w 100 rounded">
-                    </div>
+                    <a href="pages/product.html?name=es teh susu" class="text-decoration-none link-dark">
+                        <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
+                            <img src="upload/drink/milk tea.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Es Teh Susu</strong>
+                            <small class="text-muted fw-bold">Rp. 5.000</small>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
-                        <img src="upload/drink/iced tea.png" alt="" class="w 100 rounded">
-                    </div>
+                    <a href="pages/product.html?name=teh es" class="text-decoration-none link-dark">
+                        <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
+                            <img src="upload/drink/iced tea.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Teh Es</strong>
+                            <small class="text-muted fw-bold">Rp. 3.000</small>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-lg-4 col-6 my-1">
-                    <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
-                        <img src="upload/drink/choco.png" alt="" class="w 100 rounded">
-                    </div>
+                    <a href="pages/product.html?name=es coklat" class="text-decoration-none link-dark">
+                        <div class="card w-100 bg-light border-0 shadow-sm rounded p-2">
+                            <img src="upload/drink/choco.png" alt="" class="w 100 rounded">
+                            <strong class="my-2">Es Coklat</strong>
+                            <small class="text-muted fw-bold">Rp. 5.000</small>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

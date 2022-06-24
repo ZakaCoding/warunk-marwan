@@ -34,112 +34,151 @@
                     </div>
                     <div class="col d-flex align-items-center">
                         <!-- logo -->
-                        <a href="../">
-                            <img src="../asset/logo.png" alt="" class="mx-auto" width="60">
+                        <a href="../" class="mx-auto">
+                            <img src="../asset/logo.png" width="60">
                         </a>
                     </div>
                     <div class="col d-flex align-items-center justify-content-end">
                         <!-- cart -->
-                        <button class="cart rounded shadow-sm p-2 d-flex align-items-center"">
+                        <a href="cart.html" class="cart rounded shadow-sm p-2 d-flex align-items-center position-relative">
                             <img src="../asset/icon/shopping-cart.png">
-                        </button>
+                            <div id="cart-count" class="position-absolute rounded-circle border-0 d-flex align-items-center" style="background-color: red; top: -10px; right: -7px; width: 20px; height: 20px; visibility: hidden;">
+                                <p id="total-items-on-cart" class="text-white text-center mx-auto my-2 fw-bold" style="font-size: 11pt;">
+                                    <!-- generate by javascript -->
+                                </p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </nav>
-
-            <div class="container-fluid">
-                <h2 class="title fw-bold fs-3 px-2 border-bottom py-2 mb-3">Pesanan</h2>
-                <div class="card items w-100 rounded shadow-sm bg-light p-2 border-0 mb-3">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="../upload/food/ayam crispy.png" alt="" class="rounded w-100">
-                        </div>
-                        <div class="col-8 d-block px-2">
-                            <strong class="fs-5 mb-2">Ayam Crispy</strong><br>
-                            <small class="fw-bold text-muted item-price">Rp. 12.000</small>
-                            <br>
-                            <div class="d-flex mt-2">
-                                <button class="btn btn-sm bg-dark text-white rounded border-0 p-0 px-3 fs-4" onclick="minustBtn(event)">-</button>
-                                <div class="d-flex mx-2 align-items-center">
-                                    <span class="total-items">1</span>
-                                </div>
-                                <button class="btn btn-sm bg-dark text-white rounded border-0 p-0 px-3 fs-4" onclick="plustBtn(event)">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card items w-100 rounded shadow-sm bg-light p-2 border-0 mb-3">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="../upload/food/ikan bakar.png" alt="" class="rounded w-100">
-                        </div>
-                        <div class="col-8 d-block px-2">
-                            <strong class="fs-5 mb-2">Ikan Bakar</strong><br>
-                            <small class="fw-bold text-muted item-price">Rp. 15.000</small>
-                            <br>
-                            <div class="d-flex mt-2">
-                                <button class="btn btn-sm bg-dark text-white rounded border-0 p-0 px-3 fs-4" onclick="minustBtn(event)">-</button>
-                                <div class="d-flex mx-2 align-items-center">
-                                    <span class="total-items">1</span>
-                                </div>
-                                <button class="btn btn-sm bg-dark text-white rounded border-0 p-0 px-3 fs-4" onclick="plustBtn(event)">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Checkout -->
-                <hr>
-                <!-- Detail user -->
-                <div class="mb-5">
-                    <label for="user-name" class="form-label fw-bold">Nama Pemesan</label>
-                    <input type="text" class="form-control" id="user-name" placeholder="masukan nama anda">
-                </div>
-                <!-- Total harga -->
-                <div class="d-flex w-100 mb-3 justify-content-between">
-                    <h2 class="fs-5 fw-bold text-left">Total Harga</h2>
-                    <h2 class="fs-5 fw-bold text-right text-muted" id="total-price">Rp.24.000</h2>
-                </div>
-                <button class="btn btn-lg w-100 border-0 btn-success" id="checkout">Pesan Makanan</button>
-            </div>
         </div>
     </header>
+
+    <div class="container-fluid">
+        <h2 class="title fw-bold fs-3 px-2 border-bottom py-2 mb-3">Pesanan</h2>
+
+        <div id="order-list">
+            <!-- Generate by javascript -->
+        </div>
+        
+        <!-- Checkout -->
+        <hr>
+        <!-- Detail user -->
+        <div class="mb-5">
+            <label for="user-name" class="form-label fw-bold">Nama Pemesan</label>
+            <input type="text" class="form-control" id="user-name" placeholder="masukan nama anda">
+        </div>
+        <!-- Total harga -->
+        <div class="d-flex w-100 mb-3 justify-content-between">
+            <h2 class="fs-5 fw-bold text-left">Total Harga</h2>
+            <h2 class="fs-5 fw-bold text-right text-muted" id="total-price"></h2>
+        </div>
+        <button class="btn btn-lg w-100 border-0 btn-success mb-3" id="checkout">Pesan Makanan</button>
+    </div>
 
     <footer>
 
     </footer>
 
     <script>
-        // Firebase integration
+        window.addEventListener('DOMContentLoaded', function() {
+            generateCart()
+            generateTotalPrice()
+        })
         
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyCVO0cnZgIo88dAdAPe9M0bzgVCCInn5Z8",
-          authDomain: "warunk-marwan-data.firebaseapp.com",
-          databaseURL: "https://warunk-marwan-data-default-rtdb.asia-southeast1.firebasedatabase.app",
-          projectId: "warunk-marwan-data",
-          storageBucket: "warunk-marwan-data.appspot.com",
-          messagingSenderId: "1042525585922",
-          appId: "1:1042525585922:web:7cbeb4d881607ca794dd1b",
-          measurementId: "G-V8TY6QPP3E"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const dbRef = firebase.database().ref();
-        const ordersRef = dbRef.child('orders');
-
         function generateCart()
         {
             // Function for get all order from localStorage
+            if(localStorage.getItem('items-cart') !== null)
+            {
+                var orderContainer = document.querySelector('#order-list')
+                var dataItem = localStorage.getItem('items-cart')
 
+                if(orderContainer !== null)
+                {
+                    for(let i = 0; i < JSON.parse(dataItem).length; i++)
+                    {
+                        var content = `
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="${JSON.parse(dataItem)[i].image}" alt="" class="rounded w-100">
+                                </div>
+                                <div class="col-8 d-block px-2 position-relative">
+                                    <strong class="fs-5 mb-2">${JSON.parse(dataItem)[i].name}</strong><br>
+                                    <small class="fw-bold text-muted item-price">${JSON.parse(dataItem)[i].price}</small>
+                                    <br>
+                                    <div class="d-flex mt-2">
+                                        <button class="btn btn-sm bg-dark text-white rounded border-0 p-0 px-3 fs-4" onclick="minustBtn(event, ${i})">-</button>
+                                        <div class="d-flex mx-2 align-items-center">
+                                            <span class="total-items">${JSON.parse(dataItem)[i].total}</span>
+                                        </div>
+                                        <button class="btn btn-sm bg-dark text-white rounded border-0 p-0 px-3 fs-4" onclick="plustBtn(event, ${i})">+</button>
+                                    </div>
+
+                                    <button class="position-absolute" style="right:15px; top: 5px; border: none; background-color: transparent">
+                                        <img src="../asset/icon/x.svg" class="w-100" onclick="removeItem(event, ${i})">
+                                    </button>
+                                </div>
+                            </div>
+                        `
+
+                        var createItem = document.createElement('div')
+                        createItem.className = 'card items w-100 rounded shadow-sm bg-light p-2 border-0 mb-3'
+                        createItem.innerHTML = content
+
+                        orderContainer.appendChild(createItem)
+                    }
+                }
+            }
+            else
+            {
+                var checkoutBtn = document.querySelector('#checkout')
+                checkoutBtn.setAttribute('disabled', true)
+            }
+        }
+
+        function removeItem(e, index)
+        {
+            var orderData = JSON.parse(localStorage.getItem('items-cart'))
+
+            // delete data JSON by indexing
+            // remember this only delete data JSON from variable was set before, not effect on localStorage Data
+            delete orderData[index]
+
+            // after delete JSON data on variable, data will have undefined key. i.e
+            /**
+             * data before
+             * [
+             *  {'key' : 'value'},
+             *  {'key' : 'value'},
+             *  {'key' : 'value'}
+             * ]
+             * 
+             * after delete JSON data with > delete JsonData[key]
+             * >>>> data on JSON will be like this <<<<<<
+             * [
+             *  {'key' : 'value'},
+             *  undefined,
+             *  {'key' : 'value'}
+             * ]
+             * 
+             * 
+             */
+            orderData = orderData.filter(function(e){
+                return e != undefined
+            })
+
+            // parsing data was filtered to localStorage('items').
+            localStorage.setItem('items-cart', JSON.stringify(orderData));
+
+            // check data on localstorage
+            // if already 0 then remove localstorage
+            if(JSON.parse(localStorage.getItem('items-cart')).length == 0)
+            {
+                localStorage.removeItem('items-cart');
+            }
+
+            location.reload()
         }
 
         function generateTotalPrice()
@@ -171,7 +210,7 @@
         }
 
         // Button
-        function minustBtn(e)
+        function minustBtn(e,index)
         {
             e.preventDefault()
             let dataTarget = e.target
@@ -189,10 +228,10 @@
                 updateData = parseInt(getData.innerText - 1)
             }
 
-            return (getData.innerText = updateData, generateTotalPrice())
+            return (getData.innerText = updateData, generateTotalPrice(), updateItem(parseInt(index), updateData))
         }
 
-        function plustBtn(e)
+        function plustBtn(e, index)
         {
             e.preventDefault()
             let dataTarget = e.target
@@ -203,7 +242,20 @@
 
             currentVal += 1
 
-            return (getData.innerText = currentVal, generateTotalPrice())
+            return (getData.innerText = currentVal, generateTotalPrice(), updateItem(parseInt(index), currentVal))
+        }
+
+        function updateItem(index, total)
+        {
+            var getItem = JSON.parse(localStorage.getItem('items-cart'))
+            // var price = getItem[index]['price']
+            
+            // var totalPrice = parseFloat(price).toFixed(3) * total
+
+            // getItem[index]['price'] = parseFloat(totalPrice).toFixed(3)
+            getItem[index]['total'] = total
+
+            return localStorage.setItem('items-cart', JSON.stringify(getItem))
         }
 
         // checkout btn
@@ -213,20 +265,67 @@
             // get user name
             let user = document.querySelector('#user-name').value
 
-            // store data to firebase
-            let newOrders = {} // JSON Data
+            // get data from localstorage
+            let data = JSON.parse(localStorage.getItem('items-cart'))
 
-            newOrders['ORD001'] = {
-                createdAt : 'today',
-                data: 'tes data 1',
-                price: 'Rp. 39.000'
+            // generate order ID
+            var getOrderID = 'ORD' + Math.floor(1000 + Math.random() * 9000)
+
+            let restJson = {
+                id: getOrderID,
+                name : user,
+                total: generateTotalPrice(),
+                data : data
             }
 
-            // push data to server
-            return ordersRef.push(newOrders, function() {
-                console.log("data success")
-            })
+            // open connection server
+            let xhr = new XMLHttpRequest()
+            let url = "http://localhost/warunk-marwan/server/create-order.php"
+
+            xhr.open("POST", url, true)
+
+            // set request header
+            xhr.setRequestHeader("Content-Type", "application/json")
+
+            // state callback
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && xhr.status === 200)
+                {
+                    // get response message
+                    let response = JSON.parse(this.responseText)
+
+                    if(response.status == 'success')
+                    {
+                        // remove item localstorage
+                        localStorage.removeItem('items-cart')
+                        // redirect
+                        let redirectLink = "http://localhost/warunk-marwan/pages/transaction.html?status=" + response.status + "&orderid=" + response.orderID
+    
+                        window.open(redirectLink, '_parent')
+                    }
+                }
+            }
+
+            xhr.send(JSON.stringify(restJson))
         })
+
+
+        // hamburger
+         // here for hamburger :)
+        // Look for .hamburger
+        var hamburger = document.querySelector(".hamburger");
+        // Look for #menuToggle
+        var menu = document.querySelector(".menuToggle")
+
+        // On click even
+        hamburger.addEventListener("click", function() {
+            // Toggle class "is-active"
+            hamburger.classList.toggle("is-active");
+
+            // Something else, like open/close menu
+            // Toggle class "menu-active"
+            menu.classList.toggle("menu-active");
+        });
 
     </script>
 </body>

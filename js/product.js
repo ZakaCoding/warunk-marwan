@@ -12,27 +12,41 @@ window.addEventListener('DOMContentLoaded', function() {
             generateComponent("component/ayam-crispy.html", product_name)
             break;
         case "lele goreng":
-            generateComponent("component/luna-dress.html", product_name)
+            generateComponent("component/lele-goreng.html", product_name)
             break;
         case "udang bakar":
-            generateComponent("component/luna-dress.html", product_name)
+            generateComponent("component/udang-bakar.html", product_name)
             break;
         case "ikan goreng":
-            generateComponent("component/luna-dress.html", product_name)
+            generateComponent("component/ikan-goreng.html", product_name)
             break;
         case "ikan bakar":
-            generateComponent("component/luna-dress.html", product_name)
+            generateComponent("component/ikan-bakar.html", product_name)
             break;
         case "tempe tahu":
-            generateComponent("component/luna-dress.html", product_name)
+            generateComponent("component/tempe-tahu.html", product_name)
             break;
         case "ayam goreng":
-            generateComponent("component/luna-dress.html", product_name)
+            generateComponent("component/ayam-goreng.html", product_name)
+            break;
+        case "teh es":
+            generateComponent("component/teh-es.html", product_name)
+            break;
+        case "es jeruk":
+            generateComponent("component/es-jeruk.html", product_name)
+            break;
+        case "es teh susu":
+            generateComponent("component/es-teh-susu.html", product_name)
+            break;
+        case "es coklat":
+            generateComponent("component/choco.html", product_name)
             break;
         default:
             generateComponent("component/not-found.html","")
             break;
     }
+
+    countItem()
 })
 
 function generateComponent(sourceFile, productName)
@@ -43,4 +57,45 @@ function generateComponent(sourceFile, productName)
 
     // return source file component
     return $('.product-container').load(sourceFile)
+}
+
+// add to cart
+function addItem()
+{
+    let itemName = document.querySelector('#product-name').innerText
+    let price = document.querySelector('#price').innerText
+    let imagePath = document.querySelector('#image-item').src
+
+    // set localstograge
+    if(localStorage.getItem("items-cart") !== null)
+    {
+        var items = JSON.parse(localStorage.getItem(("items-cart")))
+    }
+    else
+    {
+        var items = []
+    }
+
+    items.push(
+        {
+            "name" : itemName,
+            "price" : price,
+            "image" : imagePath,
+            "total" : 1
+        }
+    )
+    localStorage.setItem("items-cart", JSON.stringify(items))
+
+    return window.location.reload()
+}
+
+function countItem()
+{
+    let countNumber = document.querySelector('#cart-count')
+    let count = document.querySelector('#total-items-on-cart')
+    if(localStorage.getItem('items-cart') !== null || JSON.parse(localStorage.getItem('items-cart')).length > 0)
+    {
+        count.innerText = JSON.parse(localStorage.getItem('items-cart')).length
+        countNumber.classList.add('visible')
+    }
 }

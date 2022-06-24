@@ -8,6 +8,11 @@ html, body {
     background-color: whitesmoke;
 }
 
+/* HELPER */
+.visible {
+    visibility: visible;
+}
+
 .hamburger-box {
     transform: scale(0.7);
 }
@@ -33,4 +38,5 @@ html, body {
     height: 260px;
     background-color: transparent;
 }
+
 

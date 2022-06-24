@@ -34,14 +34,19 @@
                     </div>
                     <div class="col d-flex align-items-center">
                         <!-- logo -->
-                        <a href="../">
-                            <img src="../asset/logo.png" alt="" class="mx-auto" width="60">
+                        <a href="../" class="mx-auto">
+                            <img src="../asset/logo.png" alt="" width="60">
                         </a>
                     </div>
                     <div class="col d-flex align-items-center justify-content-end">
                         <!-- cart -->
-                        <a href="cart.html" class="cart rounded shadow-sm p-2 d-flex align-items-center"">
+                        <a href="cart.html" class="cart rounded shadow-sm p-2 d-flex align-items-center position-relative">
                             <img src="../asset/icon/shopping-cart.png">
+                            <div id="cart-count" class="position-absolute rounded-circle border-0 d-flex align-items-center" style="background-color: red; top: -10px; right: -7px; width: 20px; height: 20px; visibility: hidden;">
+                                <p id="total-items-on-cart" class="text-white text-center mx-auto my-2 fw-bold" style="font-size: 11pt;">
+                                    <!-- generate by javascript -->
+                                </p>
+                            </div>
                         </a>
                     </div>
                 </div>
