@@ -1,6 +1,6 @@
 <?php
-    $baseurl = "http://127.0.0.1:5500/";
-    $mysqli = new mysqli("localhost", "root", "whoami", "marwan_db");
+    $baseurl = "http://marwanklik.com/";
+    $mysqli = new mysqli("203.175.9.13", "marq3935", "5erAEEhag7ZT19", "marq3935_marwan_db");
 
     if($mysqli->connect_errno)
     {

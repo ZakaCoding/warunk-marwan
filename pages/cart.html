@@ -280,7 +280,7 @@
 
             // open connection server
             let xhr = new XMLHttpRequest()
-            let url = "http://localhost/warunk-marwan/server/create-order.php"
+            let url = "http://marwanklik.com/server/create-order.php"
 
             xhr.open("POST", url, true)
 
@@ -299,7 +299,7 @@
                         // remove item localstorage
                         localStorage.removeItem('items-cart')
                         // redirect
-                        let redirectLink = "http://localhost/warunk-marwan/pages/transaction.html?status=" + response.status + "&orderid=" + response.orderID
+                        let redirectLink = "http://marwanklik.com/pages/transaction.html?status=" + response.status + "&orderid=" + response.orderID
     
                         window.open(redirectLink, '_parent')
                     }
